@@ -15,10 +15,10 @@
       <div id="chatbox">
         <script>
           // welcome message from chatbot
-          function displayWelcomeMessage() {
+          function intitalMsg() {
             let messagesDiv = document.getElementById("messages");
 
-            // Bot message
+            // bot message
             let botMsgDiv = document.createElement("div");
             botMsgDiv.className = "botMessage";
             let botImg = document.createElement("img");
@@ -32,23 +32,23 @@
             botMsgDiv.appendChild(botTextDiv);
             messagesDiv.appendChild(botMsgDiv);
 
-            // Scroll to bottom of chatbox
+            // scroll to bottom of the chat
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
           }
 
-          // Call the displayWelcomeMessage function on page load
-          window.onload = displayWelcomeMessage;
+          // intitalMsg on page reload
+          window.onload = intitalMsg;
 
-          // Function to send message
+          // function to send message
           function sendMessage() {
-            let userInput = document.getElementById("userInput").value.trim(); // Trim whitespace
+            let userInput = document.getElementById("userInput").value.trim(); //whitesapce trim
             if (userInput === "") {
-              return; // If user message is empty, exit function
+              return; // if user message is empty, exit function
             }
             document.getElementById("userInput").value = "";
             let messagesDiv = document.getElementById("messages");
 
-            // User message
+            // user message
             let userMsgDiv = document.createElement("div");
             userMsgDiv.className = "userMessage";
             let userTextDiv = document.createElement("div");
@@ -62,21 +62,15 @@
             userImg.className = "user-img";
             userMsgDiv.appendChild(userImg);
 
-            // Scroll to bottom of chatbox after adding user message
+            // scroll to bottom of the chat
             userMsgDiv.scrollIntoView();
 
             fetch(`/get?msg=${userInput}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
             .then(data => {
                 if (!data.response) {
-                    return; // If bot response is empty, exit function
+                    return;
                 }
-                // Bot response
+                // bot response
                 let botMsgDiv = document.createElement("div");
                 botMsgDiv.className = "botMessage";
                 let botImg = document.createElement("img");
@@ -90,7 +84,7 @@
                 botMsgDiv.appendChild(botTextDiv);
                 messagesDiv.appendChild(botMsgDiv);
 
-                // Scroll to bottom of chatbox after adding bot message
+
                 botMsgDiv.scrollIntoView();
             })
             .catch(error => {
