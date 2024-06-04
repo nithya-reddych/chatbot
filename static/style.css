@@ -119,3 +119,7 @@ button:hover {
     height: 30px;
     border-radius: 50%;
 }
+
+.user-img{
+    margin-left: 5px;
+}

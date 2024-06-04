@@ -66,10 +66,15 @@
             userMsgDiv.scrollIntoView();
 
             fetch(`/get?msg=${userInput}`)
-              .then(response => response.json())
-              .then(data => {
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
                 if (!data.response) {
-                  return; // If bot response is empty, exit function
+                    return; // If bot response is empty, exit function
                 }
                 // Bot response
                 let botMsgDiv = document.createElement("div");
@@ -87,7 +92,11 @@
 
                 // Scroll to bottom of chatbox after adding bot message
                 botMsgDiv.scrollIntoView();
-              });
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+
           }
         </script>
         <div id="messages"></div>
