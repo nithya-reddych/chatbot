@@ -7,7 +7,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-# download the 'punkt' tokenizer if not present
+# Download the 'punkt' tokenizer if it is not already present
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
@@ -48,26 +48,40 @@ def get_response(user_input):
     logging.debug(f"Tokens: {tokens}")
     
     if any(fuzzy_match(token, keywords["greeting"]) for token in tokens):
-        return random.choice(responses["greeting"])
+        response = random.choice(responses["greeting"])
+        logging.debug(f"Greeting response: {response}")
+        return response
     
     if any(fuzzy_match(token, keywords["goodbye"]) for token in tokens):
-        return random.choice(responses["goodbye"])
+        response = random.choice(responses["goodbye"])
+        logging.debug(f"Goodbye response: {response}")
+        return response
     
     if any(fuzzy_match(token, keywords["thank_you"]) for token in tokens):
-        return random.choice(responses["thank_you"])
-
+        response = random.choice(responses["thank_you"])
+        logging.debug(f"Thank you response: {response}")
+        return response
     
     if any(fuzzy_match(token, keywords["delivery_time"]) for token in tokens):
-        return random.choice(responses["delivery_time"])
+        response = random.choice(responses["delivery_time"])
+        logging.debug(f"Delivery time response: {response}")
+        return response
     
     if any(fuzzy_match(token, keywords["order_status"]) for token in tokens):
-        return random.choice(responses["order_status"])
-
+        response = random.choice(responses["order_status"])
+        logging.debug(f"Order status response: {response}")
+        return response
+    
     if any(fuzzy_match(token, keywords["contact_support"]) for token in tokens):
-        return random.choice(responses["contact_support"])
-
+        response = random.choice(responses["contact_support"])
+        logging.debug(f"Contact support response: {response}")
+        return response
     
     if any(fuzzy_match(token, keywords["chat_executive"]) for token in tokens):
-        return random.choice(responses["chat_executive"])
+        response = random.choice(responses["chat_executive"])
+        logging.debug(f"Chat executive response: {response}")
+        return response
     
-    return "I'm sorry, I'm not sure I understand that. Can you please rephrase?"
+    default_response = "I'm sorry, I'm not sure I understand that. Can you please rephrase?"
+    logging.debug(f"Default response: {default_response}")
+    return default_response
