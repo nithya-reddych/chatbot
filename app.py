@@ -46,5 +46,13 @@ def chat_response():
         app.logger.error(f"Error: {str(e)}")
         return jsonify({"response": "Sorry, there was an error processing your request."}), 500
 
+@app.route("/test")
+def test():
+    try:
+        return jsonify({"response": "Test route is working."})
+    except Exception as e:
+        app.logger.error(f"Test route error: {str(e)}")
+        return jsonify({"response": "Error in test route."}), 500
+
 if __name__ == '__main__':
     app.run(port=8000, debug=True)

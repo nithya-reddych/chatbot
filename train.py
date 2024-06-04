@@ -3,10 +3,9 @@ import nltk
 import re
 from nltk.tokenize import word_tokenize
 from fuzzywuzzy import fuzz
+import logging
 
-# Download and append NLTK data path
-# nltk.download('punkt', download_dir='./nltk_data')
-# nltk.data.path.append('./nltk_data')
+logging.basicConfig(level=logging.DEBUG)
 
 responses = {
     "greeting": ["Hello! How can I help you today?", "Hi there! What can I do for you?", "Hi there, how can I help you today"],
@@ -18,11 +17,10 @@ responses = {
     "chat_executive": ["Please hold on, connecting you to an executive.", "An executive will be with you shortly."]
 }
 
-# keywords
 keywords = {
     "greeting": ["hello", "hi", "hey"],
-    "goodbye" :["bye", "See you later", "goodbye"],
-    "thank_you" : ["Thanks", "Thank you", "That's helpful", "Thank's a lot!", "helpful"],
+    "goodbye": ["bye", "See you later", "goodbye"],
+    "thank_you": ["Thanks", "Thank you", "That's helpful", "Thank's a lot!", "helpful"],
     "delivery_time": ["delivery", "time", "when", "arrive", "expected", "receive"],
     "order_status": ["order", "status", "where", "check", "track", "tracking"],
     "contact_support": ["contact", "support", "help", "assist"],
@@ -38,41 +36,46 @@ def fuzzy_match(user_input, category_keywords):
     return False
 
 def get_response(user_input):
+    logging.debug(f"User input: {user_input}")
     user_input = user_input.lower()
     tokens = word_tokenize(user_input)
+    logging.debug(f"Tokens: {tokens}")
     
-    # fuzzy matching
     if any(fuzzy_match(token, keywords["greeting"]) for token in tokens):
-        return random.choice(responses["greeting"])
+        response = random.choice(responses["greeting"])
+        logging.debug(f"Greeting response: {response}")
+        return response
     
     if any(fuzzy_match(token, keywords["goodbye"]) for token in tokens):
-        return random.choice(responses["goodbye"])
+        response = random.choice(responses["goodbye"])
+        logging.debug(f"Goodbye response: {response}")
+        return response
     
     if any(fuzzy_match(token, keywords["thank_you"]) for token in tokens):
-        return random.choice(responses["thank_you"])
+        response = random.choice(responses["thank_you"])
+        logging.debug(f"Thank you response: {response}")
+        return response
     
     if any(fuzzy_match(token, keywords["delivery_time"]) for token in tokens):
-        return random.choice(responses["delivery_time"])
+        response = random.choice(responses["delivery_time"])
+        logging.debug(f"Delivery time response: {response}")
+        return response
     
     if any(fuzzy_match(token, keywords["order_status"]) for token in tokens):
-        return random.choice(responses["order_status"])
+        response = random.choice(responses["order_status"])
+        logging.debug(f"Order status response: {response}")
+        return response
     
     if any(fuzzy_match(token, keywords["contact_support"]) for token in tokens):
-        return random.choice(responses["contact_support"])
+        response = random.choice(responses["contact_support"])
+        logging.debug(f"Contact support response: {response}")
+        return response
     
     if any(fuzzy_match(token, keywords["chat_executive"]) for token in tokens):
-        return random.choice(responses["chat_executive"])
+        response = random.choice(responses["chat_executive"])
+        logging.debug(f"Chat executive response: {response}")
+        return response
     
-    # if any(fuzzy_match(token, keywords["chat_executive"]) for token in tokens):
-    # Initiate live chat session (integration)
-    # live_chat_response = initiate_live_chat_session()
-    
-    # if live_chat_response:  # Successful connection
-    #     return f"You are now connected with a live representative. {live_chat_response}"
-    # else:
-    #     return "We are currently experiencing high volume. Our chat representatives are unavailable at this moment. Please try again later."
-    
-    # default
-    return "I'm sorry, I'm not sure I understand that. Can you please rephrase?"
-
-
+    default_response = "I'm sorry, I'm not sure I understand that. Can you please rephrase?"
+    logging.debug(f"Default response: {default_response}")
+    return default_response
