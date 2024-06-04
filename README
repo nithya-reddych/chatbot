@@ -6,4 +6,4 @@
 # pip install -r requirements.txt
 # pip freeze > requirements.txt
 
-site: https://chatbot1-4rlx.onrender.com/
+
