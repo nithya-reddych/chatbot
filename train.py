@@ -7,6 +7,12 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
+# Download the 'punkt' tokenizer if it is not already present
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
+
 responses = {
     "greeting": ["Hello! How can I help you today?", "Hi there! What can I do for you?", "Hi there, how can I help you today"],
     "goodbye": ["Have a nice day", "Bye! Have a nice day."],
