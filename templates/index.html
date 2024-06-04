@@ -40,10 +40,10 @@
           window.onload = displayWelcomeMessage;
 
           // Function to send message
-        function sendMessage() {
+          function sendMessage() {
             let userInput = document.getElementById("userInput").value.trim(); // Trim whitespace
             if (userInput === "") {
-                return; // If user message is empty, exit function
+              return; // If user message is empty, exit function
             }
             document.getElementById("userInput").value = "";
             let messagesDiv = document.getElementById("messages");
@@ -66,30 +66,29 @@
             userMsgDiv.scrollIntoView();
 
             fetch(`/get?msg=${userInput}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.response) {
-                        return; // If bot response is empty, exit function
-                    }
-                    // Bot response
-                    let botMsgDiv = document.createElement("div");
-                    botMsgDiv.className = "botMessage";
-                    let botImg = document.createElement("img");
-                    botImg.src = "{{ url_for('static', filename='bot.jpeg') }}";
-                    botImg.alt = "Chatbot";
-                    botImg.className = "bot-img";
-                    botMsgDiv.appendChild(botImg);
-                    let botTextDiv = document.createElement("div");
-                    botTextDiv.className = "text";
-                    botTextDiv.innerHTML = data.response;
-                    botMsgDiv.appendChild(botTextDiv);
-                    messagesDiv.appendChild(botMsgDiv);
+              .then(response => response.json())
+              .then(data => {
+                if (!data.response) {
+                  return; // If bot response is empty, exit function
+                }
+                // Bot response
+                let botMsgDiv = document.createElement("div");
+                botMsgDiv.className = "botMessage";
+                let botImg = document.createElement("img");
+                botImg.src = "{{ url_for('static', filename='bot.jpeg') }}";
+                botImg.alt = "Chatbot";
+                botImg.className = "bot-img";
+                botMsgDiv.appendChild(botImg);
+                let botTextDiv = document.createElement("div");
+                botTextDiv.className = "text";
+                botTextDiv.innerHTML = data.response;
+                botMsgDiv.appendChild(botTextDiv);
+                messagesDiv.appendChild(botMsgDiv);
 
-                    // Scroll to bottom of chatbox after adding bot message
-                    botMsgDiv.scrollIntoView();
-                });
-        }
-
+                // Scroll to bottom of chatbox after adding bot message
+                botMsgDiv.scrollIntoView();
+              });
+          }
         </script>
         <div id="messages"></div>
       </div>
