@@ -7,7 +7,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-# Download the 'punkt' tokenizer if it is not already present
+# 'punkt' tokenizer if is  not present
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
@@ -82,6 +82,4 @@ def get_response(user_input):
         logging.debug(f"Chat executive response: {response}")
         return response
     
-    default_response = "I'm sorry, I'm not sure I understand that. Can you please rephrase?"
-    logging.debug(f"Default response: {default_response}")
-    return default_response
+    return "I'm sorry, I'm not sure I understand that. Can you please rephrase?"

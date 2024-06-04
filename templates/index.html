@@ -14,11 +14,9 @@
       </div>
       <div id="chatbox">
         <script>
-          // welcome message from chatbot
           function intitalMsg() {
             let messagesDiv = document.getElementById("messages");
 
-            // bot message
             let botMsgDiv = document.createElement("div");
             botMsgDiv.className = "botMessage";
             let botImg = document.createElement("img");
@@ -32,23 +30,19 @@
             botMsgDiv.appendChild(botTextDiv);
             messagesDiv.appendChild(botMsgDiv);
 
-            // scroll to bottom of the chat
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
           }
 
-          // intitalMsg on page reload
           window.onload = intitalMsg;
 
-          // function to send message
           function sendMessage() {
-            let userInput = document.getElementById("userInput").value.trim(); //whitesapce trim
+            let userInput = document.getElementById("userInput").value.trim();
             if (userInput === "") {
-              return; // if user message is empty, exit function
+              return;
             }
             document.getElementById("userInput").value = "";
             let messagesDiv = document.getElementById("messages");
 
-            // user message
             let userMsgDiv = document.createElement("div");
             userMsgDiv.className = "userMessage";
             let userTextDiv = document.createElement("div");
@@ -62,15 +56,14 @@
             userImg.className = "user-img";
             userMsgDiv.appendChild(userImg);
 
-            // scroll to bottom of the chat
             userMsgDiv.scrollIntoView();
 
-            fetch(`/get?msg=${userInput}`)
-            .then(data => {
+            fetch(`/get?msg=${(userInput)}`)
+              .then(response => response.json())
+              .then(data => {
                 if (!data.response) {
-                    return;
+                  return;
                 }
-                // bot response
                 let botMsgDiv = document.createElement("div");
                 botMsgDiv.className = "botMessage";
                 let botImg = document.createElement("img");
@@ -84,13 +77,11 @@
                 botMsgDiv.appendChild(botTextDiv);
                 messagesDiv.appendChild(botMsgDiv);
 
-
                 botMsgDiv.scrollIntoView();
-            })
-            .catch(error => {
+              })
+              .catch(error => {
                 console.error('Fetch error:', error);
-            });
-
+              });
           }
         </script>
         <div id="messages"></div>
