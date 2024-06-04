@@ -1,9 +1,13 @@
 import random
 import nltk
+import re
 from nltk.tokenize import word_tokenize
 from fuzzywuzzy import fuzz
+import logging
 
-# download the 'punkt' tokenizer if it is not present
+logging.basicConfig(level=logging.DEBUG)
+
+# download the 'punkt' tokenizer if not present
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
@@ -38,8 +42,10 @@ def fuzzy_match(user_input, category_keywords):
     return False
 
 def get_response(user_input):
+    logging.debug(f"User input: {user_input}")
     user_input = user_input.lower()
     tokens = word_tokenize(user_input)
+    logging.debug(f"Tokens: {tokens}")
     
     if any(fuzzy_match(token, keywords["greeting"]) for token in tokens):
         return random.choice(responses["greeting"])
@@ -49,15 +55,17 @@ def get_response(user_input):
     
     if any(fuzzy_match(token, keywords["thank_you"]) for token in tokens):
         return random.choice(responses["thank_you"])
+
     
     if any(fuzzy_match(token, keywords["delivery_time"]) for token in tokens):
         return random.choice(responses["delivery_time"])
     
     if any(fuzzy_match(token, keywords["order_status"]) for token in tokens):
         return random.choice(responses["order_status"])
-    
+
     if any(fuzzy_match(token, keywords["contact_support"]) for token in tokens):
         return random.choice(responses["contact_support"])
+
     
     if any(fuzzy_match(token, keywords["chat_executive"]) for token in tokens):
         return random.choice(responses["chat_executive"])
