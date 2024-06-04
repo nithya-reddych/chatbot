@@ -1,0 +1,7 @@
+flask
+transformers
+torch
+nltk
+fuzzywuzzy
+python-Levenshtein
+gunicorn

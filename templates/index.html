@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ChatBot</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="outer-container">
+    <div class="container">
+      <div class="chat-header">
+        <img src="{{ url_for('static', filename='bot.jpeg') }}" alt="Chatbot" class="chatbot-img">
+        <h2>ChatBot</h2>
+      </div>
+      <div id="chatbox">
+        <script>
+          // welcome message from chatbot
+          function displayWelcomeMessage() {
+            let messagesDiv = document.getElementById("messages");
+
+            // Bot message
+            let botMsgDiv = document.createElement("div");
+            botMsgDiv.className = "botMessage";
+            let botImg = document.createElement("img");
+            botImg.src = "{{ url_for('static', filename='bot.jpeg') }}";
+            botImg.alt = "Chatbot";
+            botImg.className = "bot-img";
+            botMsgDiv.appendChild(botImg);
+            let botTextDiv = document.createElement("div");
+            botTextDiv.className = "text";
+            botTextDiv.innerHTML = "Hello! How can I help you today?";
+            botMsgDiv.appendChild(botTextDiv);
+            messagesDiv.appendChild(botMsgDiv);
+
+            // Scroll to bottom of chatbox
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+          }
+
+          // Call the displayWelcomeMessage function on page load
+          window.onload = displayWelcomeMessage;
+
+          // Function to send message
+        function sendMessage() {
+            let userInput = document.getElementById("userInput").value.trim(); // Trim whitespace
+            if (userInput === "") {
+                return; // If user message is empty, exit function
+            }
+            document.getElementById("userInput").value = "";
+            let messagesDiv = document.getElementById("messages");
+
+            // User message
+            let userMsgDiv = document.createElement("div");
+            userMsgDiv.className = "userMessage";
+            let userTextDiv = document.createElement("div");
+            userTextDiv.className = "text";
+            userTextDiv.innerHTML = userInput;
+            userMsgDiv.appendChild(userTextDiv);
+            messagesDiv.appendChild(userMsgDiv);
+            let userImg = document.createElement("img");
+            userImg.src = "{{ url_for('static', filename='user.jpeg') }}";
+            userImg.alt = "User";
+            userImg.className = "user-img";
+            userMsgDiv.appendChild(userImg);
+
+            // Scroll to bottom of chatbox after adding user message
+            userMsgDiv.scrollIntoView();
+
+            fetch(`/get?msg=${userInput}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.response) {
+                        return; // If bot response is empty, exit function
+                    }
+                    // Bot response
+                    let botMsgDiv = document.createElement("div");
+                    botMsgDiv.className = "botMessage";
+                    let botImg = document.createElement("img");
+                    botImg.src = "{{ url_for('static', filename='bot.jpeg') }}";
+                    botImg.alt = "Chatbot";
+                    botImg.className = "bot-img";
+                    botMsgDiv.appendChild(botImg);
+                    let botTextDiv = document.createElement("div");
+                    botTextDiv.className = "text";
+                    botTextDiv.innerHTML = data.response;
+                    botMsgDiv.appendChild(botTextDiv);
+                    messagesDiv.appendChild(botMsgDiv);
+
+                    // Scroll to bottom of chatbox after adding bot message
+                    botMsgDiv.scrollIntoView();
+                });
+        }
+
+        </script>
+        <div id="messages"></div>
+      </div>
+      <div class="input-container">
+        <input type="text" id="userInput" placeholder="Type your message here...">
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

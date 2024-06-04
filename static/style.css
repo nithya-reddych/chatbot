@@ -1,0 +1,121 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ee9c2f, #e06b6bd3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.outer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.chatbot-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.chat-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+#chatbox {
+    flex: 1;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#userInput {
+    width: calc(80% - 10px);    
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background: #000000fa;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #474747bc;
+}
+
+.userMessage, .botMessage {
+    display: flex;
+    align-items: flex-start;
+    margin: 10px 0;
+}
+
+.userMessage {
+    justify-content: flex-end;
+}
+
+.botMessage {
+    justify-content: flex-start;
+}
+
+.userMessage .text, .botMessage .text {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.userMessage .text {
+    background: #f8a995;
+    margin-left: 10px;
+}
+
+.botMessage .text {
+    background: #eee;
+    margin-right: 10px;
+}
+
+.user-img, .bot-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
